@@ -30,10 +30,12 @@ def getTranslation(word):
 	url = 'https://od-api.oxforddictionaries.com:443/api/v1/entries/' + source_language + '/' + word.lower() + '/translations=' + target_language
 	r = requests.get(url, headers = {'app_id': app_id, 'app_key': app_key})
 	print("code {}\n".format(r.status_code))
-	print(word + '\n')
-	print("text \n" + r.text)
 	#print("json \n" + json.dumps(r.json()))
-	return jsonify({'message' : 'abby'});
+	return jsonify({'message' : r.json()});
+
+@app.route('/favicon.ico', methods=['GET'])
+def favicon():
+	return jsonify({'message' : 'favicon'})
 
 
 
