@@ -14,6 +14,8 @@ import os
 
 from flask import Flask, jsonify
 from google.cloud import translate
+from watson_developer_cloud import TextToSpeechV1
+
 
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./apiKey/ARgot-2901c81d1cd3.json"
@@ -23,6 +25,11 @@ app_key = '3ac35902b6dcfa9e855f892dd0f68665'
 
 source_language = 'en'
 target_language = 'es'
+
+text_to_speech = TextToSpeechV1(
+    username='eb37ff04-83a6-4172-82a2-24adaa022c2b',
+    password='w1tqUEEyau5C',
+    x_watson_learning_opt_out=True)
 
 app = Flask(__name__)      
  
@@ -37,6 +44,7 @@ def getTranslation(word):
 	print("code {}\n".format(r.status_code))
 	#print("json \n" + json.dumps(r.json()))
 	translation = translate_text(word)
+	read_text()
 	return jsonify({'message' : r.json()});
 
 
@@ -50,6 +58,13 @@ def translate_text(text, target='es'):
 	result = translate_client.translate(text, target_language=target)
 
 	return result['translatedText']
+
+def read_text(word):
+	with open('./output.mp3',
+	          'wb') as audio_file:
+	    audio_file.write(
+	        text_to_speech.synthesize(word, accept='audio/mp3',
+	                                  voice="es-US_SofiaVoice"))
 
  
 if __name__ == '__main__':
