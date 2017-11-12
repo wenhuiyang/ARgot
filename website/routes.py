@@ -51,6 +51,7 @@ def getTranslation(word):
 	data = json.loads(r.text)
 	
 	result = []
+	result.append({'translation': translation})
 
 	try:
 		examples = data['results'][0]['lexicalEntries'][0]['entries'][0]['senses'][0]['examples']
@@ -70,6 +71,7 @@ def getTranslation(word):
 	except BaseException as e:
 		try:
 			result = []
+			result.append({'translation': translation})
 			examples = data['results'][0]['lexicalEntries'][0]['entries'][0]['senses'][0]['subsenses'][0]['examples']
 			for example in examples:
 				example_english_text = example['text']
