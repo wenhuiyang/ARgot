@@ -12,7 +12,7 @@ import requests
 import json
 import os
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_file
 from google.cloud import translate
 from watson_developer_cloud import TextToSpeechV1
 
@@ -101,12 +101,14 @@ def translate_text(text, target='es'):
 
 	return result['translatedText']
 
+@app.route('/audio/<string:word>', methods=['GET'])
 def read_text(word):
 	with open('./output.mp3',
 	          'wb') as audio_file:
 	    audio_file.write(
 	        text_to_speech.synthesize(word, accept='audio/mp3',
 	                                  voice="es-US_SofiaVoice"))
+	return send_file('./output.mp3', mimetype="audio/mp3", as_attachment=True, attachment_filename="read.mp3")
 
  
 if __name__ == '__main__':
