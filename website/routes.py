@@ -18,7 +18,7 @@ from watson_developer_cloud import TextToSpeechV1
 
 
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./apiKey/ARgot-2901c81d1cd3.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "apiKey/ARgot-2901c81d1cd3.json"
 
 app_id = 'e299e0de'
 app_key = '3ac35902b6dcfa9e855f892dd0f68665'
