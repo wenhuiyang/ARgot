@@ -52,7 +52,7 @@ def getTranslation(word):
 	try:
 		examples = data['results'][0]['lexicalEntries'][0]['entries'][0]['senses'][0]['examples']
 
-		for example in examples:
+		for example in examples: 
 			example_english_text = example['text']
 
 			example_translation = example['translations'][0]
