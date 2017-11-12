@@ -42,10 +42,55 @@ def getTranslation(word):
 	url = 'https://od-api.oxforddictionaries.com:443/api/v1/entries/' + source_language + '/' + word.lower() + '/translations=' + target_language
 	r = requests.get(url, headers = {'app_id': app_id, 'app_key': app_key})
 	print("code {}\n".format(r.status_code))
+<<<<<<< HEAD
 	#print("json \n" + json.dumps(r.json()))
 	translation = translate_text(word)
 	read_text(translation)
 	return jsonify({'message' : r.json()});
+=======
+	# print("json \n" + json.dumps(r.json()))
+	# res = jsonify({'message' : r.json()})
+	# return res
+	data = json.loads(r.text)
+	
+	result = []
+
+	try:
+		examples = data['results'][0]['lexicalEntries'][0]['entries'][0]['senses'][0]['examples']
+
+		for example in examples:
+			example_english_text = example['text']
+
+			example_translation = example['translations'][0]
+			
+			example_language = example_translation['language']
+		
+			example_translated_text = example_translation['text']
+			
+			result.append({'english_sentence': example_english_text,
+			'language': example_language,
+			'translated': example_translated_text})
+	except BaseException as e:
+		try:
+			result = []
+			examples = data['results'][0]['lexicalEntries'][0]['entries'][0]['senses'][0]['subsenses'][0]['examples']
+			for example in examples:
+				example_english_text = example['text']
+
+				example_translation = example['translations'][0]
+				
+				example_language = example_translation['language']
+			
+				example_translated_text = example_translation['text']
+				
+				result.append({'english_sentence': example_english_text,
+				'language': example_language,
+				'translated': example_translated_text})
+		except BaseException as e:
+			print "Failed"
+
+	return jsonify(result)
+>>>>>>> 05b4779c83f718e477d98ced636a0c7b396915ca
 
 
 
