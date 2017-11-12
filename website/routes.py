@@ -44,7 +44,7 @@ def getTranslation(word):
 	print("code {}\n".format(r.status_code))
 	#print("json \n" + json.dumps(r.json()))
 	translation = translate_text(word)
-	read_text()
+	read_text(translation)
 	return jsonify({'message' : r.json()});
 
 
