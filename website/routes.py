@@ -42,12 +42,9 @@ def getTranslation(word):
 	url = 'https://od-api.oxforddictionaries.com:443/api/v1/entries/' + source_language + '/' + word.lower() + '/translations=' + target_language
 	r = requests.get(url, headers = {'app_id': app_id, 'app_key': app_key})
 	print("code {}\n".format(r.status_code))
-<<<<<<< HEAD
 	#print("json \n" + json.dumps(r.json()))
 	translation = translate_text(word)
 	read_text(translation)
-	return jsonify({'message' : r.json()});
-=======
 	# print("json \n" + json.dumps(r.json()))
 	# res = jsonify({'message' : r.json()})
 	# return res
@@ -90,7 +87,7 @@ def getTranslation(word):
 			print "Failed"
 
 	return jsonify(result)
->>>>>>> 05b4779c83f718e477d98ced636a0c7b396915ca
+
 
 
 
